@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
+const FadeInSection = ({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -13,6 +13,7 @@ const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; del
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+      className={className}
     >
       {children}
     </motion.div>
@@ -193,47 +194,59 @@ const About = () => {
           </h2>
         </FadeInSection>
 
-        <div className="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
-          <FadeInSection delay={0.1}>
-            <div className="space-y-6 text-base md:text-lg leading-relaxed text-muted-foreground">
-              <p>
-                Every category is getting disrupted—by changing science, shifting demand, and investor
-                pressure. Winners won't be the loudest or the biggest. They'll be the ones making
-                clear-eyed bets, building capabilities, and executing fast.
-              </p>
-              <p>
-                Zafra exists for those companies. We partner with food and nutrition businesses to
-                strengthen commercial strategy, accelerate innovation, and drive sustainable, long-term
-                growth.
-              </p>
-              <p className="font-semibold text-[#1a4d3a]">
-                We operate with a bias for action, skepticism of noise, and zero tolerance for strategic
-                theater.
-              </p>
+        <div className="grid md:grid-cols-12 gap-12 md:gap-16 max-w-7xl mx-auto items-center">
+          <FadeInSection delay={0.1} className="md:col-span-5">
+            <div className="relative">
+              <img
+                src="/about-visual.png"
+                alt="Zafra Consulting - Food and Nutrition Strategy"
+                className="w-full h-auto rounded-lg shadow-sm"
+              />
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.2}>
-            <div className="relative bg-[#1a4d3a] text-white p-10 md:p-12 rounded-md overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-                style={{ backgroundImage: 'url(/agriculture-bg.png)' }}
-              />
-              <div className="absolute inset-0 bg-[#1a4d3a]/60"></div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-6">Our Philosophy</h3>
-                <p className="text-base md:text-lg leading-relaxed opacity-95 mb-4">
-                  Meaningful impact in the food industry requires more than insight. It requires precision,
-                  credibility, and a deep understanding of how business decisions get made—and executed.
+          <div className="md:col-span-7 space-y-12">
+            <FadeInSection delay={0.2}>
+              <div className="space-y-6 text-base md:text-lg leading-relaxed text-muted-foreground">
+                <p>
+                  Every category is getting disrupted—by changing science, shifting demand, and investor
+                  pressure. Winners won't be the loudest or the biggest. They'll be the ones making
+                  clear-eyed bets, building capabilities, and executing fast.
                 </p>
-                <p className="text-base md:text-lg leading-relaxed opacity-95">
-                  With a focus on commercially relevant strategy, science-backed innovation, and real-world
-                  execution, Zafra serves as a strategic partner for organizations ready to lead, not
-                  follow.
+                <p>
+                  Zafra exists for those companies. We partner with food and nutrition businesses to
+                  strengthen commercial strategy, accelerate innovation, and drive sustainable, long-term
+                  growth.
+                </p>
+                <p className="font-semibold text-[#1a4d3a]">
+                  We operate with a bias for action, skepticism of noise, and zero tolerance for strategic
+                  theater.
                 </p>
               </div>
-            </div>
-          </FadeInSection>
+            </FadeInSection>
+
+            <FadeInSection delay={0.3}>
+              <div className="relative bg-[#1a4d3a] text-white p-10 md:p-12 rounded-md overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+                  style={{ backgroundImage: 'url(/agriculture-bg.png)' }}
+                />
+                <div className="absolute inset-0 bg-[#1a4d3a]/60"></div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold mb-6">Our Philosophy</h3>
+                  <p className="text-base md:text-lg leading-relaxed opacity-95 mb-4">
+                    Meaningful impact in the food industry requires more than insight. It requires precision,
+                    credibility, and a deep understanding of how business decisions get made—and executed.
+                  </p>
+                  <p className="text-base md:text-lg leading-relaxed opacity-95">
+                    With a focus on commercially relevant strategy, science-backed innovation, and real-world
+                    execution, Zafra serves as a strategic partner for organizations ready to lead, not
+                    follow.
+                  </p>
+                </div>
+              </div>
+            </FadeInSection>
+          </div>
         </div>
       </div>
     </section>
