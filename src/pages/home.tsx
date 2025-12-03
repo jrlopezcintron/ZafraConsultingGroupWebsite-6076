@@ -1,18 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const GeometricPattern = ({ className = '' }: { className?: string }) => (
-  <div className={`absolute inset-0 overflow-hidden ${className}`}>
-    <div className="absolute top-0 left-[10%] w-32 h-1 bg-[#6b8e3d] opacity-60 rotate-[30deg]"></div>
-    <div className="absolute top-[15%] right-[20%] w-24 h-1 bg-[#d4a574] opacity-60 rotate-[-30deg]"></div>
-    <div className="absolute top-[40%] left-[5%] w-40 h-1 bg-[#1a4d3a] opacity-40 rotate-[45deg]"></div>
-    <div className="absolute bottom-[30%] right-[10%] w-36 h-1 bg-[#8bb55c] opacity-50 rotate-[-45deg]"></div>
-    <div className="absolute bottom-[10%] left-[25%] w-28 h-1 bg-[#d4a574] opacity-60 rotate-[20deg]"></div>
-    <div className="absolute top-[60%] right-[30%] w-32 h-1 bg-[#6b8e3d] opacity-40 rotate-[-20deg]"></div>
-  </div>
-);
 
 const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const ref = useRef(null);
@@ -32,6 +21,7 @@ const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; del
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,75 +35,133 @@ const Header = () => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
     }
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/logo.jpg" alt="Zafra Logo" className="h-12 w-12 rounded-md object-cover" />
-            <span className="text-2xl font-bold text-[#1a4d3a]">ZAFRA</span>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-white/98 shadow-sm' : 'bg-[#1a4d3a]'
+        }`}
+      >
+        <div className="container mx-auto px-6 py-5">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <span className={`text-2xl font-semibold tracking-[0.15em] ${isScrolled ? 'text-[#1a4d3a]' : 'text-white'}`}>
+                ZAFRA
+              </span>
+              <span className={`text-xs tracking-[0.1em] ${isScrolled ? 'text-muted-foreground' : 'text-white/80'}`}>
+                Consulting Group
+              </span>
+            </div>
+            <nav className="hidden md:flex items-center gap-10">
+              <button
+                onClick={() => scrollToSection('about')}
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? 'text-foreground hover:text-[#d4a574]' : 'text-white hover:text-[#d4a574]'
+                }`}
+              >
+                About
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? 'text-foreground hover:text-[#d4a574]' : 'text-white hover:text-[#d4a574]'
+                }`}
+              >
+                Services
+              </button>
+              <button
+                onClick={() => scrollToSection('principles')}
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? 'text-foreground hover:text-[#d4a574]' : 'text-white hover:text-[#d4a574]'
+                }`}
+              >
+                Principles
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className={`text-sm font-medium transition-colors ${
+                  isScrolled ? 'text-foreground hover:text-[#d4a574]' : 'text-white hover:text-[#d4a574]'
+                }`}
+              >
+                Contact
+              </button>
+            </nav>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`md:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
-          <nav className="hidden md:flex items-center gap-8">
+        </div>
+      </header>
+
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: '100%' }}
+          transition={{ duration: 0.3 }}
+          className="fixed top-[73px] right-0 bottom-0 left-0 z-40 bg-white md:hidden"
+        >
+          <nav className="flex flex-col p-6 space-y-6">
             <button
               onClick={() => scrollToSection('about')}
-              className="text-foreground hover:text-[#1a4d3a] transition-colors font-medium"
+              className="text-left text-lg font-medium text-foreground hover:text-[#d4a574] transition-colors py-3 border-b border-border"
             >
               About
             </button>
             <button
               onClick={() => scrollToSection('services')}
-              className="text-foreground hover:text-[#1a4d3a] transition-colors font-medium"
+              className="text-left text-lg font-medium text-foreground hover:text-[#d4a574] transition-colors py-3 border-b border-border"
             >
               Services
             </button>
             <button
               onClick={() => scrollToSection('principles')}
-              className="text-foreground hover:text-[#1a4d3a] transition-colors font-medium"
+              className="text-left text-lg font-medium text-foreground hover:text-[#d4a574] transition-colors py-3 border-b border-border"
             >
               Principles
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="text-foreground hover:text-[#1a4d3a] transition-colors font-medium"
+              className="text-left text-lg font-medium text-foreground hover:text-[#d4a574] transition-colors py-3 border-b border-border"
             >
               Contact
             </button>
           </nav>
-        </div>
-      </div>
-    </header>
+        </motion.div>
+      )}
+    </>
   );
 };
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a4d3a] via-[#1a4d3a] to-[#2a5d4a]">
-      <GeometricPattern />
-      <div className="container mx-auto px-6 py-32 relative z-10">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#1a4d3a]">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDMiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-40"></div>
+      <div className="container mx-auto px-6 py-32 md:py-40 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-4xl"
         >
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
             Strategic. Scientific. Scalable.
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed serif">
+          <p className="text-lg md:text-xl text-white/90 mb-12 leading-relaxed max-w-2xl">
             Shaping a healthier global food system by enabling bold, commercially sound moves—grounded
             in science, driven by strategy, built to scale.
           </p>
           <Button
             size="lg"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-white text-[#1a4d3a] hover:bg-white/90 text-lg px-8 py-6 rounded-full font-semibold shadow-xl hover:shadow-2xl transition-all"
+            className="bg-white text-[#1a4d3a] hover:bg-[#d4a574] hover:text-white text-base px-10 py-6 rounded-md font-medium shadow-lg transition-all"
           >
             Start the Conversation
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -126,17 +174,17 @@ const Hero = () => {
 
 const About = () => {
   return (
-    <section id="about" className="py-24 bg-background">
+    <section id="about" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-6">
         <FadeInSection>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-20 text-center">
             Built for Impact
           </h2>
         </FadeInSection>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
           <FadeInSection delay={0.1}>
-            <div className="space-y-6 serif text-lg leading-relaxed">
+            <div className="space-y-6 text-base md:text-lg leading-relaxed text-muted-foreground">
               <p>
                 Every category is getting disrupted—by changing science, shifting demand, and investor
                 pressure. Winners won't be the loudest or the biggest. They'll be the ones making
@@ -155,13 +203,13 @@ const About = () => {
           </FadeInSection>
 
           <FadeInSection delay={0.2}>
-            <div className="bg-[#1a4d3a] text-white p-8 rounded-2xl shadow-lg">
+            <div className="bg-[#1a4d3a] text-white p-10 md:p-12 rounded-md">
               <h3 className="text-2xl font-bold mb-6">Our Philosophy</h3>
-              <p className="serif text-lg leading-relaxed opacity-95">
+              <p className="text-base md:text-lg leading-relaxed opacity-95 mb-4">
                 Meaningful impact in the food industry requires more than insight. It requires precision,
                 credibility, and a deep understanding of how business decisions get made—and executed.
               </p>
-              <p className="serif text-lg leading-relaxed opacity-95 mt-4">
+              <p className="text-base md:text-lg leading-relaxed opacity-95">
                 With a focus on commercially relevant strategy, science-backed innovation, and real-world
                 execution, Zafra serves as a strategic partner for organizations ready to lead, not
                 follow.
@@ -180,27 +228,24 @@ const Services = () => {
       title: 'Commercial Strategy',
       description:
         'Clear-eyed market analysis, competitive positioning, and growth strategies that balance short-term wins with long-term resilience. We help you make the right bets in rapidly evolving markets.',
-      color: '#1a4d3a',
     },
     {
       title: 'Innovation Acceleration',
       description:
         'Science-backed innovation agendas that translate emerging research into commercial opportunities. From functional nutrition to novel ingredients, we bridge the gap between lab and market.',
-      color: '#6b8e3d',
     },
     {
       title: 'Growth Execution',
       description:
         'Implementation-ready deliverables designed for action, not admiration. Our work integrates seamlessly with your business timelines and supports both capability building and measurable outcomes.',
-      color: '#8bb55c',
     },
   ];
 
   return (
-    <section id="services" className="py-24 bg-white">
+    <section id="services" className="py-24 md:py-32 bg-white">
       <div className="container mx-auto px-6">
         <FadeInSection>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-20 text-center">
             How We Work
           </h2>
         </FadeInSection>
@@ -208,15 +253,11 @@ const Services = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {services.map((service, index) => (
             <FadeInSection key={index} delay={0.1 * (index + 1)}>
-              <div className="group h-full bg-card border border-border rounded-2xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  className="w-12 h-1 mb-6 rounded-full"
-                  style={{ backgroundColor: service.color }}
-                ></div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-[#1a4d3a] transition-colors">
+              <div className="h-full bg-white border border-border rounded-md p-8">
+                <h3 className="text-2xl font-bold mb-4 text-foreground">
                   {service.title}
                 </h3>
-                <p className="serif text-lg leading-relaxed text-muted-foreground">{service.description}</p>
+                <p className="text-base leading-relaxed text-muted-foreground">{service.description}</p>
               </div>
             </FadeInSection>
           ))}
@@ -229,51 +270,56 @@ const Services = () => {
 const Principles = () => {
   const principles = [
     {
+      number: '01',
       title: 'No RFPs. No Pitches. No Theatrics.',
       description: 'Engagements begin with decisions, not dance routines.',
     },
     {
+      number: '02',
       title: 'Strategy That Ships',
       description: 'Output is designed to be used, not admired.',
     },
     {
+      number: '03',
       title: 'Zero Patience for Fluff',
       description: 'Work is judged on impact, not slides.',
     },
     {
+      number: '04',
       title: 'Built for the Real World',
       description: 'We balance short-term gains with long-term resilience.',
     },
     {
+      number: '05',
       title: 'Time is Finite',
       description: 'No work during year-end, early January, or holidays.',
     },
     {
+      number: '06',
       title: 'USD Only',
       description: 'Simple terms. Global standard.',
     },
   ];
 
   return (
-    <section id="principles" className="py-24 bg-background relative overflow-hidden">
-      <GeometricPattern className="opacity-30" />
+    <section id="principles" className="py-24 md:py-32 bg-[#1a4d3a] relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <FadeInSection>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-20 text-center">
             Business Principles
           </h2>
         </FadeInSection>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {principles.map((principle, index) => (
             <FadeInSection key={index} delay={0.05 * (index + 1)}>
-              <div className="bg-white border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-[#6b8e3d] flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold text-lg mb-2 text-foreground">{principle.title}</h3>
-                    <p className="text-muted-foreground serif leading-relaxed">{principle.description}</p>
-                  </div>
+              <div className="flex gap-6">
+                <div className="text-6xl font-bold text-[#d4a574] opacity-40 leading-none">
+                  {principle.number}
+                </div>
+                <div className="flex-1 pt-2">
+                  <h3 className="font-bold text-xl mb-2 text-white">{principle.title}</h3>
+                  <p className="text-white/80 leading-relaxed">{principle.description}</p>
                 </div>
               </div>
             </FadeInSection>
@@ -286,31 +332,31 @@ const Principles = () => {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 bg-white">
+    <section id="contact" className="py-32 md:py-40 bg-white">
       <div className="container mx-auto px-6">
         <FadeInSection>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-10 text-center">
             Ready to Lead?
           </h2>
         </FadeInSection>
 
         <FadeInSection delay={0.1}>
-          <p className="text-xl serif leading-relaxed max-w-3xl mx-auto text-center mb-12 text-muted-foreground">
+          <p className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto text-center mb-16 text-muted-foreground">
             We work exclusively with senior decision-makers at multinationals, mid-sized firms, and
             high-potential startups who value sharp thinking, fast execution, and honest advice.
           </p>
         </FadeInSection>
 
         <FadeInSection delay={0.2}>
-          <div className="max-w-2xl mx-auto bg-gradient-to-br from-[#1a4d3a] to-[#2a5d4a] text-white rounded-2xl p-10 shadow-xl">
+          <div className="max-w-2xl mx-auto bg-[#1a4d3a] text-white rounded-md p-12 md:p-16">
             <h3 className="text-3xl font-bold mb-6">Let's Talk Strategy</h3>
-            <p className="serif text-lg leading-relaxed mb-8 opacity-95">
+            <p className="text-lg leading-relaxed mb-10 opacity-95">
               Global scope, excluding restricted markets. All engagements in USD. Direct access to
               experienced operators—not traditional consultants.
             </p>
             <Button
               size="lg"
-              className="bg-white text-[#1a4d3a] hover:bg-white/90 text-lg px-8 py-6 rounded-full font-semibold w-full md:w-auto"
+              className="bg-white text-[#1a4d3a] hover:bg-[#d4a574] hover:text-white text-base px-10 py-6 rounded-md font-medium w-full md:w-auto transition-all"
             >
               Get In Touch
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -324,9 +370,9 @@ const Contact = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1a4d3a] text-white py-8">
+    <footer className="bg-[#1a4d3a] text-white py-10">
       <div className="container mx-auto px-6 text-center">
-        <p className="text-white/80">© 2025 Zafra Consulting Group. All rights reserved.</p>
+        <p className="text-white/70 text-sm">© 2025 Zafra Consulting Group. All rights reserved.</p>
       </div>
     </footer>
   );

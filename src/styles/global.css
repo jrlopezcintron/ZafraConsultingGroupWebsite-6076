@@ -1,15 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=Fraunces:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   
-  --zafra-primary-green: #1a4d3a;
-  --zafra-accent-green: #6b8e3d;
-  --zafra-light-green: #8bb55c;
-  --zafra-golden: #d4a574;
-  --zafra-cream: #f5f3f0;
+  --zafra-deep-green: #1a4d3a;
+  --zafra-parchment: #f5f3f0;
+  --zafra-gold: #d4a574;
   
   --background: 245 243 240;
   --foreground: 17 17 17;
@@ -23,26 +21,26 @@
   --primary: 26 77 58;
   --primary-foreground: 255 255 255;
 
-  --secondary: 107 142 61;
-  --secondary-foreground: 255 255 255;
+  --secondary: 212 165 116;
+  --secondary-foreground: 17 17 17;
 
-  --muted: 234 228 216;
-  --muted-foreground: 91 94 89;
+  --muted: 224 224 224;
+  --muted-foreground: 115 115 115;
 
   --accent: 212 165 116;
   --accent-foreground: 17 17 17;
 
   --destructive: 220 38 38;
   --destructive-foreground: 255 255 255;
-  --border: 215 209 196;
+  --border: 224 224 224;
   --input: 234 228 216;
   --ring: 26 77 58;
 
   --chart-1: 26 77 58;
-  --chart-2: 107 142 61;
-  --chart-3: 139 181 92;
-  --chart-4: 212 165 116;
-  --chart-5: 91 94 89;
+  --chart-2: 212 165 116;
+  --chart-3: 115 115 115;
+  --chart-4: 245 243 240;
+  --chart-5: 17 17 17;
 
   --sidebar: 255 255 255;
   --sidebar-foreground: 17 17 17;
@@ -50,7 +48,7 @@
   --sidebar-primary-foreground: 255 255 255;
   --sidebar-accent: 234 228 216;
   --sidebar-accent-foreground: 17 17 17;
-  --sidebar-border: 215 209 196;
+  --sidebar-border: 224 224 224;
   --sidebar-ring: 26 77 58;
 }
 
@@ -155,11 +153,11 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   }
   
   .serif {
-    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 }
 
