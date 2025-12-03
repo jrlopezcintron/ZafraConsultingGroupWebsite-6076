@@ -48,13 +48,20 @@ const Header = () => {
       >
         <div className="container mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className={`text-2xl font-semibold tracking-[0.15em] ${isScrolled ? 'text-[#1a4d3a]' : 'text-white'}`}>
-                ZAFRA
-              </span>
-              <span className={`text-xs tracking-[0.1em] ${isScrolled ? 'text-muted-foreground' : 'text-white/80'}`}>
-                Consulting Group
-              </span>
+            <div className="flex items-center gap-4">
+              <img 
+                src="/logo.jpg" 
+                alt="Zafra Consulting Group Logo" 
+                className="h-14 w-14 object-contain rounded-md"
+              />
+              <div className="flex flex-col">
+                <span className={`text-2xl font-semibold tracking-[0.15em] ${isScrolled ? 'text-[#1a4d3a]' : 'text-white'}`}>
+                  ZAFRA
+                </span>
+                <span className={`text-xs tracking-[0.1em] ${isScrolled ? 'text-muted-foreground' : 'text-white/80'}`}>
+                  Consulting Group
+                </span>
+              </div>
             </div>
             <nav className="hidden md:flex items-center gap-10">
               <button
@@ -142,8 +149,12 @@ const Header = () => {
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#1a4d3a]">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDMiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-40"></div>
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(/hero-bg.png)' }}
+      />
+      <div className="absolute inset-0 bg-[#1a4d3a]/85"></div>
       <div className="container mx-auto px-6 py-32 md:py-40 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -203,17 +214,24 @@ const About = () => {
           </FadeInSection>
 
           <FadeInSection delay={0.2}>
-            <div className="bg-[#1a4d3a] text-white p-10 md:p-12 rounded-md">
-              <h3 className="text-2xl font-bold mb-6">Our Philosophy</h3>
-              <p className="text-base md:text-lg leading-relaxed opacity-95 mb-4">
-                Meaningful impact in the food industry requires more than insight. It requires precision,
-                credibility, and a deep understanding of how business decisions get made—and executed.
-              </p>
-              <p className="text-base md:text-lg leading-relaxed opacity-95">
-                With a focus on commercially relevant strategy, science-backed innovation, and real-world
-                execution, Zafra serves as a strategic partner for organizations ready to lead, not
-                follow.
-              </p>
+            <div className="relative bg-[#1a4d3a] text-white p-10 md:p-12 rounded-md overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+                style={{ backgroundImage: 'url(/agriculture-bg.png)' }}
+              />
+              <div className="absolute inset-0 bg-[#1a4d3a]/60"></div>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold mb-6">Our Philosophy</h3>
+                <p className="text-base md:text-lg leading-relaxed opacity-95 mb-4">
+                  Meaningful impact in the food industry requires more than insight. It requires precision,
+                  credibility, and a deep understanding of how business decisions get made—and executed.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed opacity-95">
+                  With a focus on commercially relevant strategy, science-backed innovation, and real-world
+                  execution, Zafra serves as a strategic partner for organizations ready to lead, not
+                  follow.
+                </p>
+              </div>
             </div>
           </FadeInSection>
         </div>
