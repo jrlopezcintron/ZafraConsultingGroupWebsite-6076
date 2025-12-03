@@ -259,22 +259,31 @@ const Services = () => {
       title: 'Commercial Strategy',
       description:
         'Clear-eyed market analysis, competitive positioning, and growth strategies that balance short-term wins with long-term resilience. We help you make the right bets in rapidly evolving markets.',
+      image: '/strategy-visual.png',
     },
     {
       title: 'Innovation Acceleration',
       description:
         'Science-backed innovation agendas that translate emerging research into commercial opportunities. From functional nutrition to novel ingredients, we bridge the gap between lab and market.',
+      image: '/innovation-visual.png',
     },
     {
       title: 'Growth Execution',
       description:
         'Implementation-ready deliverables designed for action, not admiration. Our work integrates seamlessly with your business timelines and supports both capability building and measurable outcomes.',
+      image: '/strategy-visual.png',
     },
   ];
 
   return (
-    <section id="services" className="py-24 md:py-32 bg-white">
-      <div className="container mx-auto px-6">
+    <section id="services" className="relative py-24 md:py-32 overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(/strategy-visual.png)' }}
+      />
+      <div className="absolute inset-0 bg-[#f5f1e8]/95"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <FadeInSection>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-20 text-center">
             How We Work
@@ -284,11 +293,22 @@ const Services = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {services.map((service, index) => (
             <FadeInSection key={index} delay={0.1 * (index + 1)}>
-              <div className="h-full bg-white border border-border rounded-md p-8">
-                <h3 className="text-2xl font-bold mb-4 text-foreground">
-                  {service.title}
-                </h3>
-                <p className="text-base leading-relaxed text-muted-foreground">{service.description}</p>
+              <div className="group h-full bg-white/90 backdrop-blur-sm border border-border rounded-md overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="relative h-48 overflow-hidden">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${service.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#1a4d3a]/60 to-[#1a4d3a]/80"></div>
+                  <div className="absolute inset-0 flex items-end p-6">
+                    <h3 className="text-2xl font-bold text-white z-10">
+                      {service.title}
+                    </h3>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <p className="text-base leading-relaxed text-muted-foreground">{service.description}</p>
+                </div>
               </div>
             </FadeInSection>
           ))}
@@ -363,8 +383,14 @@ const Principles = () => {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-32 md:py-40 bg-white">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="relative py-32 md:py-40 overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(/contact-visual.png)' }}
+      />
+      <div className="absolute inset-0 bg-white/90"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <FadeInSection>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-10 text-center">
             Ready to Lead?
@@ -379,7 +405,7 @@ const Contact = () => {
         </FadeInSection>
 
         <FadeInSection delay={0.2}>
-          <div className="max-w-2xl mx-auto bg-[#1a4d3a] text-white rounded-md p-12 md:p-16">
+          <div className="max-w-2xl mx-auto bg-[#1a4d3a] text-white rounded-md p-12 md:p-16 shadow-lg">
             <h3 className="text-3xl font-bold mb-6">Let's Talk Strategy</h3>
             <p className="text-lg leading-relaxed mb-10 opacity-95">
               Global scope, excluding restricted markets. All engagements in USD. Direct access to
